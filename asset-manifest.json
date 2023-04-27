@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/AbdulMoeezImran/crwn-clothing/static/css/main.7f7cec2e.css",
+    "main.js": "/AbdulMoeezImran/crwn-clothing/static/js/main.a1e8934b.js",
+    "static/js/787.ec78c698.chunk.js": "/AbdulMoeezImran/crwn-clothing/static/js/787.ec78c698.chunk.js",
+    "index.html": "/AbdulMoeezImran/crwn-clothing/index.html",
+    "main.7f7cec2e.css.map": "/AbdulMoeezImran/crwn-clothing/static/css/main.7f7cec2e.css.map",
+    "main.a1e8934b.js.map": "/AbdulMoeezImran/crwn-clothing/static/js/main.a1e8934b.js.map",
+    "787.ec78c698.chunk.js.map": "/AbdulMoeezImran/crwn-clothing/static/js/787.ec78c698.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7f7cec2e.css",
+    "static/js/main.a1e8934b.js"
+  ]
+}
