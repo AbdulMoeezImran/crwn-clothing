@@ -1,6 +1,6 @@
 {
-  "name": "newapp",
-  "homepage": "https://github.com/AbdulMoeezImran/crwn-clothing",
+  "name": "crwn-clothing",
+  "homepage": "https://abdulmoeezimran.github.io/crwn-clothing/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
