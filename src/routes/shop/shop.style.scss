@@ -1,6 +1,12 @@
-.products-container{
+.products-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 10px;
     row-gap: 50px;
-}
+  }
+  
+  /* Hide product cards after the fourth one */
+  .products-container > :nth-child(n+5) {
+    display: none;
+  }
+  
