@@ -1,6 +1,6 @@
-import { Fragment, useContext } from 'react';
+import { Fragment } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropDown from '../../components/cart-dropdown/cart-dropdown.component';
 import { selectCurrentUser, selectIsCartOpen } from "../../Redux/selector";
@@ -10,7 +10,6 @@ import { NavigaitonContainer, LogoContainer, NavLinksContainer, NavLink } from '
 
 
 const Navigaiton = () => {
-    const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser)
     const isCartOpen = useSelector(selectIsCartOpen);
 
