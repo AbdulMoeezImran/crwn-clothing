@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route } from 'react-router-dom';
-import { onAuthStateChangedListener, createUserDocumentFromAuth } from "./utils/firebase/firebase.utils";
-import { setCurrentUser } from "./Redux/actions";
+import { CONSTANTS } from "./Redux/constants";
 import Home from './routes/home/home.components';
 import Navigation from './routes/navigation/navigation.component';
 import Authentication from './routes/authentication/authentication.component';
@@ -14,17 +13,9 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      dispatch(setCurrentUser(user));
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, [dispatch]);
+    dispatch({ type: CONSTANTS.REQUEST_CURRENTUSER_PENDING });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
   return (

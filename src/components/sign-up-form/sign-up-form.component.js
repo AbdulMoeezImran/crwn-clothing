@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { CONSTANTS } from "../../Redux/constants";
 import { SignUpContainer } from "./sign-up-form.style";
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 
@@ -13,6 +14,8 @@ const defaultFormFields = {
 
 
 const SignUpForm = () => {
+  const dispatch = useDispatch();
+
   const [formFields, setFormField] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
   
@@ -28,9 +31,7 @@ const SignUpForm = () => {
     }
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(email, password);
-
-      await createUserDocumentFromAuth(user, { displayName });
+      dispatch({ type: CONSTANTS.EMAIL_SIGN_UP_PENDING, payload: { email, password, displayName } });
 
       resetFormField();
 
