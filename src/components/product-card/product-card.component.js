@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addCartItem } from "../checkout-functions/checkout-function.components";
 import { selectCartItems } from '../../Redux/selector';
-import { setCartItems } from '../../Redux/actions';
+import { setCartItems } from '../../Redux/slice';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import { ProductCartContainer, Footer, Name, Price } from "./product-card.style";
 

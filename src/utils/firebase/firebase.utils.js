@@ -32,7 +32,7 @@ export const createCollectionAndDocuments = async (collectionKey, objectToAdd) =
         const docRef = doc(collectionRef, object.title.toLowerCase());
         batch.set(docRef, object);
     });
-
+    
     await batch.commit();
     console.log('done');
 
@@ -50,8 +50,11 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
     if (!userAuth) return;
 
     const userDocRef = doc(db, "users", userAuth.uid)
+    // console.log(userDocRef);
 
     const userSnapshot = await getDoc(userDocRef);
+    // console.log(userSnapshot);
+    // console.log(userSnapshot.exists());
 
     if (!userSnapshot.exists()) {
         const { displayName, email } = userAuth;
@@ -66,7 +69,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
         }
     }
 
-    return userSnapshot;
+    return userDocRef;
 
 }
 
@@ -86,13 +89,4 @@ export const signInAuthWithEmailAndPassword = (email, password) => {
 
 export const signOutUser = async () => await signOut(auth);
 
-const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
-
-export const getCurrentUser = () => {
-    return new Promise((resolve, reject) => {
-        const unsubscribe = onAuthStateChangedListener(user => {
-            resolve(user);
-        }, reject);
-        unsubscribe();
-    });
-};
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
