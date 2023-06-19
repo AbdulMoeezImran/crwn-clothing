@@ -1,17 +1,19 @@
-import { CartDropdownContainer, EmptyMessage, CartItems } from './cart-dropdown.style';
-import { useContext } from 'react';
+import { useCallback } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { CartContext } from '../../contexts/cart.context';
 import Button from '../button/button.component';
 import CartItem from '../cart-item/cart-item.component';
+import { selectCartItems } from "../../Redux/selector";
+import { CartDropdownContainer, EmptyMessage, CartItems } from './cart-dropdown.style';
 
 const CartDropDown = () => {
-  const { cartItems } = useContext(CartContext);
+  const cartItems = useSelector(selectCartItems)
   const navigate = useNavigate();
 
-  const goToCheckoutHandler = () => {
+  const goToCheckoutHandler = useCallback(() => {
     navigate('/checkout');
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <CartDropdownContainer>

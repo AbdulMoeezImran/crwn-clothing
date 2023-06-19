@@ -1,33 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { UserProvider } from "./contexts/user.contexts";
-import { CategoriesProvider } from "./contexts/categories.contexts";
-import { CartProvider } from "./contexts/cart.context";
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { PersistGate } from "redux-persist/integration/react";
+import App from './App';
+import { store, persistor } from './Redux/store';
 import './index.scss';
-
-const client = new ApolloClient({
-  uri: 'https://crwn-clothing.com/',
-  cache: new InMemoryCache()
-})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <BrowserRouter>
-        <UserProvider>
-          <CategoriesProvider>
-            <CartProvider>
-              <App />
-            </CartProvider>
-          </CategoriesProvider>
-        </UserProvider>
-      </BrowserRouter>
-    </ApolloProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );
 
