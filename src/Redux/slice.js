@@ -1,47 +1,43 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getCategoriesAndDocuments } from '../utils/firebase/firebase.utils';
 
-export const initialStateCategories = {
-  categories: [],
-  isPending: false,
-  error: null,
-};
+export const fetchCategories = createAsyncThunk(
+  'categories/fetchCategories',
+  async () => {
+    try {
+      const categoriesArray = await getCategoriesAndDocuments({});
+      return categoriesArray;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 
 export const categoriesSlice = createSlice({
   name: 'categories',
-  initialState: initialStateCategories,
-  reducers: {
-    REQUEST_CATEGORIES_PENDING(state) {
-      state.isPending = true;
-    },
-    REQUEST_CATEGORIES_SUCCESS(state, action) {
-      state.categories = action.payload;
-      state.isPending = false;
-    },
-    REQUEST_CATEGORIES_FAILED(state, action) {
-      state.error = action.payload;
-      state.isPending = false;
-    },
+  initialState: {
+    categories: [],
+    isPending: false,
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCategories.pending, (state) => {
+        state.isPending = true;
+      })
+      .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.categories = action.payload;
+        state.isPending = false;
+      })
+      .addCase(fetchCategories.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.isPending = false;
+      });
   },
 });
 
-export const {
-  REQUEST_CATEGORIES_PENDING,
-  REQUEST_CATEGORIES_SUCCESS,
-  REQUEST_CATEGORIES_FAILED,
-} = categoriesSlice.actions;
-
 export const categoriesReducer = categoriesSlice.reducer;
-
-export const fetchCategories = () => async (dispatch) => {
-  dispatch(REQUEST_CATEGORIES_PENDING());
-  try {
-    const categoriesArray = await getCategoriesAndDocuments({});
-    dispatch(REQUEST_CATEGORIES_SUCCESS(categoriesArray));
-  } catch (error) {
-    dispatch(REQUEST_CATEGORIES_FAILED(error));
-  }
-};
 
 export const initialStateUser = {
   currentUser: null,
